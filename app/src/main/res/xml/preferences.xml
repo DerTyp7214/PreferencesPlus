@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2019.
+  ~ Created by Josua Lengwenath
+  -->
+
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:key="general"
+        android:title="General">
+        <com.dertyp7214.preferencesplus.preferences.BottomSheetPreference
+            android:defaultValue="1"
+            android:entries="@android:array/imProtocols"
+            android:entryValues="@android:array/imProtocols"
+            android:key="list_preference_1"
+            android:title="BottomSheet Preference" />
+        <com.dertyp7214.preferencesplus.preferences.ColorPickerPreference
+            android:key="color_picker_1"
+            android:title="ColorPicker Preference"
+            app:showHex="true" />
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>
