@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ColorPickerPreference">
+        <attr name="showHex" format="boolean" />
+        <attr name="alphaWhileSelecting" format="float" />
+    </declare-styleable>
+    <declare-styleable name="BottomSheetPreference">
+        <attr name="roundedCorners" format="boolean" />
+    </declare-styleable>
+</resources>

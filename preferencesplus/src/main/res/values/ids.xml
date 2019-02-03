@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="bottomSheetPreferenceItemId" type="id" />
+    <item name="colorView" type="id" />
+    <item name="red" type="id" />
+    <item name="green" type="id" />
+    <item name="alpha" type="id" />
+    <item name="hexTxt" type="id" />
+    <item name="txtRed" type="id" />
+    <item name="blue" type="id" />
+    <item name="btn_ok" type="id" />
+    <item name="txtGreen" type="id" />
+    <item name="txtAlpha" type="id" />
+    <item name="btn_cancel" type="id" />
+    <item name="txtBlue" type="id" />
+</resources>
