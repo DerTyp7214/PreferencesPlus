@@ -15,8 +15,40 @@
             android:key="list_preference_1"
             android:title="BottomSheet Preference" />
         <com.dertyp7214.preferencesplus.preferences.ColorPickerPreference
-            android:key="color_picker_1"
+            android:key="color_picker_rgb"
             android:title="ColorPicker Preference"
+            app:alphaWhileSelecting="1.0"
+            app:colorMode="RGB"
+            app:showHex="true" />
+        <com.dertyp7214.preferencesplus.preferences.ColorPickerPreference
+            android:key="color_picker_argb"
+            android:title="ColorPicker Preference"
+            app:alphaWhileSelecting=".7"
+            app:colorMode="ARGB"
+            app:showHex="true" />
+        <com.dertyp7214.preferencesplus.preferences.ColorPickerPreference
+            android:key="color_picker_hsv"
+            android:title="ColorPicker Preference"
+            app:alphaWhileSelecting=".3"
+            app:colorMode="HSV"
+            app:showHex="true" />
+        <com.dertyp7214.preferencesplus.preferences.ColorPickerPreference
+            android:key="color_picker_hsl"
+            android:title="ColorPicker Preference"
+            app:alphaWhileSelecting="1.0"
+            app:colorMode="HSL"
+            app:showHex="true" />
+        <com.dertyp7214.preferencesplus.preferences.ColorPickerPreference
+            android:key="color_picker_lab"
+            android:title="ColorPicker Preference"
+            app:alphaWhileSelecting="1.0"
+            app:colorMode="LAB"
+            app:showHex="true" />
+        <com.dertyp7214.preferencesplus.preferences.ColorPickerPreference
+            android:key="color_picker_xyz"
+            android:title="ColorPicker Preference"
+            app:alphaWhileSelecting="1.0"
+            app:colorMode="XYZ"
             app:showHex="true" />
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

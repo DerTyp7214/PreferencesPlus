@@ -24,6 +24,7 @@ open class ColorPickerPreference : Preference {
     private var colorView: View? = null
     private var showHex = false
     private var alphaWhileSelecting = .3F
+    private var colorMode = ColorMode.RGB
 
     @SuppressLint("NewApi")
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(
@@ -54,6 +55,18 @@ open class ColorPickerPreference : Preference {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ColorPickerPreference)
             showHex = typedArray.getBoolean(R.styleable.ColorPickerPreference_showHex, false)
             alphaWhileSelecting = typedArray.getFloat(R.styleable.ColorPickerPreference_alphaWhileSelecting, .3F)
+            colorMode = parseColorMode(typedArray.getInt(R.styleable.ColorPickerPreference_colorMode, 0))
+        }
+    }
+
+    private fun parseColorMode(mode: Int): ColorMode {
+        return when (mode) {
+            1 -> ColorMode.ARGB
+            2 -> ColorMode.HSV
+            3 -> ColorMode.HSL
+            4 -> ColorMode.LAB
+            5 -> ColorMode.XYZ
+            else -> ColorMode.RGB
         }
     }
 
@@ -71,9 +84,11 @@ open class ColorPickerPreference : Preference {
             notifyChanged()
         }
 
+    var updateListener: (value: Int) -> Unit = {}
+
     override fun onClick() {
         ColorPicker(context).apply {
-            colorMode = ColorMode.RGB
+            colorMode = this@ColorPickerPreference.colorMode
             setColor(value)
             setAnimationTime(200)
             onTouchListener(object : ColorPicker.TouchListener {
@@ -94,7 +109,7 @@ open class ColorPickerPreference : Preference {
                     value = color
                 }
 
-                override fun update(color: Int) {}
+                override fun update(color: Int) = updateListener(color)
                 override fun cancel() {}
             })
             show()
@@ -123,7 +138,7 @@ open class ColorPickerPreference : Preference {
             frame.visibility = VISIBLE
             if (showHex) {
                 val summaryTextView = holder.findViewById(android.R.id.summary) as TextView
-                summaryTextView.text = "#${Integer.toHexString(value).substring(2).toUpperCase()}"
+                summaryTextView.text = "#${Integer.toHexString(value).substring(colorMode.sub).toUpperCase()}"
                 summaryTextView.visibility = VISIBLE
             }
         }

@@ -3,6 +3,14 @@
     <declare-styleable name="ColorPickerPreference">
         <attr name="showHex" format="boolean" />
         <attr name="alphaWhileSelecting" format="float" />
+        <attr name="colorMode" format="enum">
+            <enum name="RGB" value="0" />
+            <enum name="ARGB" value="1" />
+            <enum name="HSV" value="2" />
+            <enum name="HSL" value="3" />
+            <enum name="LAB" value="4" />
+            <enum name="XYZ" value="5" />
+        </attr>
     </declare-styleable>
     <declare-styleable name="BottomSheetPreference">
         <attr name="roundedCorners" format="boolean" />
