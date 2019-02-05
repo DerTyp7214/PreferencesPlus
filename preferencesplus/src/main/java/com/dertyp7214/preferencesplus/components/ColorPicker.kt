@@ -18,7 +18,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
-import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import com.dertyp7214.preferencesplus.R
@@ -40,7 +39,7 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
     private lateinit var blueBar: ColorSeekBar
     private lateinit var colorView: View
     private lateinit var shape: GradientDrawable
-    private lateinit var hexCode: EditText
+    private lateinit var hexCode: CustomEditText
     private lateinit var btnOk: Button
     private lateinit var btnCancel: Button
     private var alpha = Color.alpha(Color.GRAY).toFloat()
@@ -108,7 +107,7 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
         val bgDrawable = colorView.background as LayerDrawable
         shape = bgDrawable.findDrawableByLayerId(R.id.color_plate) as GradientDrawable
 
-        if (colorMode == ColorMode.ARGB) {
+        if (colorMode == ColorMode.ARGB || colorMode == ColorMode.CMYK) {
             alphaBar.visibility = View.VISIBLE
             alphaTxt.visibility = View.VISIBLE
         } else {
@@ -136,9 +135,9 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 val color = colorMode.calcColor(arrayListOf(alphaBar.progress, redBar.progress, greenBar.progress, blueBar.progress))
                 alpha = Color.alpha(color).toFloat()
-                /*red = Color.red(color).toFloat()
-                blue = Color.green(color).toFloat()
-                red = Color.blue(color).toFloat()*/
+                red = Color.red(color).toFloat()
+                green = Color.green(color).toFloat()
+                blue = Color.blue(color).toFloat()
                 setAllColors(alpha, red, green, blue)
                 if (b) setHex(colorInt)
                 if (listener != null) listener!!.update(colorInt)
@@ -249,6 +248,17 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
         btnCancel.setOnClickListener {
             if (listener != null) listener!!.cancel()
             dismiss()
+        }
+
+        hexCode.setPasteListener {
+            val hex = it.replace("#", "")
+            val color = Color.parseColor("#$hex")
+            val alpha = Color.alpha(color)
+            val red = Color.red(color)
+            val green = Color.green(color)
+            val blue = Color.blue(color)
+            setAllColors(alpha, red, green, blue, false)
+            hexCode.setSelection(it.length)
         }
 
         hexCode.addTextChangedListener(object : TextWatcher {

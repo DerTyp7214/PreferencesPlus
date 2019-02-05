@@ -66,6 +66,7 @@ open class ColorPickerPreference : Preference {
             3 -> ColorMode.HSL
             4 -> ColorMode.LAB
             5 -> ColorMode.XYZ
+            6 -> ColorMode.CMYK
             else -> ColorMode.RGB
         }
     }

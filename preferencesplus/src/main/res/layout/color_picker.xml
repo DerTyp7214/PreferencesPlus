@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/color_plate_peter_module" />
 
-    <EditText
+    <com.dertyp7214.preferencesplus.components.CustomEditText
         android:id="@+id/hexTxt"
         android:layout_width="180dp"
         android:layout_height="wrap_content"

@@ -10,6 +10,7 @@
             <enum name="HSL" value="3" />
             <enum name="LAB" value="4" />
             <enum name="XYZ" value="5" />
+            <enum name="CMYK" value="6" />
         </attr>
     </declare-styleable>
     <declare-styleable name="BottomSheetPreference">
