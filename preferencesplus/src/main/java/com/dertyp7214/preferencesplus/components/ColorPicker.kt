@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -120,25 +121,32 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
         }
 
         hexCode.filters = arrayOf(InputFilter.LengthFilter(colorMode.length), InputFilter.AllCaps(),
-                InputFilter { source, _, _, dest, dstart, _ ->
-                    val filtered = source.filterIndexed { index, c ->
-                        val idx = dstart + index
-                        (c == '#' && idx == 0 && !dest.contains('#')) || c in "0123456789ABCDEF"
-                    }
-                    if (dstart == 0 && filtered.getOrNull(0) != '#' && !dest.contains('#'))
-                        filtered.padStart(1, '#')
-                    else filtered
-                })
+            InputFilter { source, _, _, dest, dstart, _ ->
+                val filtered = source.filterIndexed { index, c ->
+                    val idx = dstart + index
+                    (c == '#' && idx == 0 && !dest.contains('#')) || c in "0123456789ABCDEF"
+                }
+                if (dstart == 0 && filtered.getOrNull(0) != '#' && !dest.contains('#'))
+                    filtered.padStart(1, '#')
+                else filtered
+            })
 
         colorMode.barColor(arrayListOf(alphaBar, redBar, greenBar, blueBar), darkMode)
         alphaBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                val color = colorMode.calcColor(arrayListOf(alphaBar.progress, redBar.progress, greenBar.progress, blueBar.progress))
+                val color = colorMode.calcColor(
+                    arrayListOf(
+                        alphaBar.progress,
+                        redBar.progress,
+                        greenBar.progress,
+                        blueBar.progress
+                    )
+                )
                 alpha = Color.alpha(color).toFloat()
                 red = Color.red(color).toFloat()
                 green = Color.green(color).toFloat()
                 blue = Color.blue(color).toFloat()
-                setAllColors(alpha, red, green, blue)
+                setAllColors(alpha, red, green, blue, 0, b)
                 if (b) setHex(colorInt)
                 if (listener != null) listener!!.update(colorInt)
                 if (toast) toast(i, 0)
@@ -155,12 +163,19 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
 
         redBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                val color = colorMode.calcColor(arrayListOf(alphaBar.progress, redBar.progress, greenBar.progress, blueBar.progress))
+                val color = colorMode.calcColor(
+                    arrayListOf(
+                        alphaBar.progress,
+                        redBar.progress,
+                        greenBar.progress,
+                        blueBar.progress
+                    )
+                )
                 alpha = Color.alpha(color).toFloat()
                 red = Color.red(color).toFloat()
                 green = Color.green(color).toFloat()
                 blue = Color.blue(color).toFloat()
-                setAllColors(alpha, red, green, blue)
+                setAllColors(alpha, red, green, blue, 1, b)
                 if (b) setHex(colorInt)
                 if (listener != null) listener!!.update(colorInt)
                 if (toast) toast(i, 1)
@@ -177,12 +192,19 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
 
         greenBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                val color = colorMode.calcColor(arrayListOf(alphaBar.progress, redBar.progress, greenBar.progress, blueBar.progress))
+                val color = colorMode.calcColor(
+                    arrayListOf(
+                        alphaBar.progress,
+                        redBar.progress,
+                        greenBar.progress,
+                        blueBar.progress
+                    )
+                )
                 alpha = Color.alpha(color).toFloat()
                 red = Color.red(color).toFloat()
                 green = Color.green(color).toFloat()
                 blue = Color.blue(color).toFloat()
-                setAllColors(alpha, red, green, blue)
+                setAllColors(alpha, red, green, blue, 2, b)
                 if (b) setHex(colorInt)
                 if (listener != null) listener!!.update(colorInt)
                 if (toast) toast(i, 2)
@@ -199,12 +221,19 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
 
         blueBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-                val color = colorMode.calcColor(arrayListOf(alphaBar.progress, redBar.progress, greenBar.progress, blueBar.progress))
+                val color = colorMode.calcColor(
+                    arrayListOf(
+                        alphaBar.progress,
+                        redBar.progress,
+                        greenBar.progress,
+                        blueBar.progress
+                    )
+                )
                 alpha = Color.alpha(color).toFloat()
                 red = Color.red(color).toFloat()
                 green = Color.green(color).toFloat()
                 blue = Color.blue(color).toFloat()
-                setAllColors(alpha, red, green, blue)
+                setAllColors(alpha, red, green, blue, 3, b)
                 if (b) setHex(colorInt)
                 if (listener != null) listener!!.update(colorInt)
                 if (toast) toast(i, 3)
@@ -266,7 +295,8 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
 
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                 if (Math.abs(i1 - i2) == 1 && ((hexCode.text.length == colorMode.length - 1 && hexCode.text[0] != '#')
-                                || (hexCode.text.length == colorMode.length && hexCode.text[0] == '#'))) {
+                            || (hexCode.text.length == colorMode.length && hexCode.text[0] == '#'))
+                ) {
                     val hex = hexCode.text.toString().replace("#", "")
                     val color = Color.parseColor("#$hex")
                     val alpha = Color.alpha(color)
@@ -305,7 +335,14 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
     }
 
     private fun setup() {
-        setAllColors(this.alpha.toInt(), this.red.toInt(), this.green.toInt(), this.blue.toInt(), false)
+        setAllColors(
+            this.alpha.toInt(),
+            this.red.toInt(),
+            this.green.toInt(),
+            this.blue.toInt(),
+            false,
+            userInput = true
+        )
     }
 
     fun setColor(color: Int) {
@@ -325,16 +362,23 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
         setAllColors(Color.alpha(color), Color.red(color), Color.green(color), Color.blue(color), false)
     }
 
-    private fun setAllColors(a: Float, r: Float, g: Float, b: Float) {
-        setAllColors(a.toInt(), r.toInt(), g.toInt(), b.toInt(), true)
+    private fun setAllColors(a: Float, r: Float, g: Float, b: Float, active: Int = -1, self: Boolean) {
+        setAllColors(a.toInt(), r.toInt(), g.toInt(), b.toInt(), true, active, self)
     }
 
-
-    private fun setAllColors(a: Int, r: Int, g: Int, b: Int, self: Boolean) {
-        setAllColors(a shl 24 or (r shl 16) or (g shl 8) or b, self)
+    private fun setAllColors(
+        a: Int,
+        r: Int,
+        g: Int,
+        b: Int,
+        self: Boolean,
+        active: Int = -1,
+        userInput: Boolean = false
+    ) {
+        setAllColors(a shl 24 or (r shl 16) or (g shl 8) or b, self, active, userInput)
     }
 
-    private fun setAllColors(color: Int, self: Boolean) {
+    private fun setAllColors(color: Int, self: Boolean, active: Int, userInput: Boolean) {
         val ac = Color.alpha(color)
         val rc = Color.red(color)
         val gc = Color.green(color)
@@ -369,13 +413,24 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
                 setHex(color)
             }
 
-            alphaTxt.text = values[0].first.toInt().toString()
+            alphaTxt.text = if (colorMode.float(0))
+                (((values[0].first * 10F).toInt() / 10F)).toString() else values[0].first.toInt().toString()
             redTxt.text = if (colorMode.float(1))
-                ((values[1].first * 10F).toInt() / 10F).toString() else values[1].first.toInt().toString()
+                (((values[1].first * 10F).toInt() / 10F)).toString() else values[1].first.toInt().toString()
             greenTxt.text = if (colorMode.float(2))
-                ((values[2].first * 10F).toInt() / 10F).toString() else values[2].first.toInt().toString()
+                (((values[2].first * 10F).toInt() / 10F)).toString() else values[2].first.toInt().toString()
             blueTxt.text = if (colorMode.float(3))
-                ((values[3].first * 10F).toInt() / 10F).toString() else values[3].first.toInt().toString()
+                (((values[3].first * 10F).toInt() / 10F)).toString() else values[3].first.toInt().toString()
+
+            if (active != -1 && userInput) {
+                arrayOf(alphaBar, redBar, greenBar, blueBar).forEachIndexed { index, colorSeekBar ->
+                    if (active != index && colorMode.adjust(index)) ((values[index].first / values[index].second) * 360).toInt().apply {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                            colorSeekBar.setProgress(this, true) else colorSeekBar.progress = this
+                    }
+                }
+            }
+
             shape.setColor(color)
         } catch (ignored: Exception) {
         }
@@ -394,17 +449,26 @@ class ColorPicker(c: Context) : Dialog(c, R.style.Theme_MaterialComponents_Light
         anim.start()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setHex(color: Int) {
-        hexCode.setText(if (hexCharp) "#${Integer.toHexString(color).substring(colorMode.sub)}" else Integer.toHexString(color).substring(colorMode.sub))
+        Integer.toHexString(color).substring(colorMode.sub).apply {
+            hexCode.setText("${if (hexCharp) "#" else ""}${if (this.length == 7) "0$this" else this}")
+        }
     }
-
 
     private fun getIntFromColor(Alpha: Float, Red: Float, Green: Float, Blue: Float): Int {
         return Alpha.toInt() shl 24 or (Red.toInt() shl 16) or (Green.toInt() shl 8) or Blue.toInt()
     }
 
     fun getColorString(alpha: Int, red: Int, green: Int, blue: Int): String {
-        return "#${Integer.toHexString(getIntFromColor(alpha.toFloat(), red.toFloat(), green.toFloat(), blue.toFloat())).substring(colorMode.sub)}"
+        return "#${Integer.toHexString(
+            getIntFromColor(
+                alpha.toFloat(),
+                red.toFloat(),
+                green.toFloat(),
+                blue.toFloat()
+            )
+        ).substring(colorMode.sub)}"
     }
 
     fun setAlpha(alpha: Float) {

@@ -14,9 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 enum class ColorMode {
     RGB {
-        val RED = 1
-        val GREEN = 2
-        val BLUE = 3
         override val length: Int
             get() = 7
         override val sub: Int
@@ -25,6 +22,10 @@ enum class ColorMode {
 
         override fun float(id: Int): Boolean {
             return false
+        }
+
+        override fun adjust(id: Int): Boolean {
+            return true
         }
 
         private var bars: ArrayList<ColorSeekBar> = ArrayList()
@@ -74,10 +75,6 @@ enum class ColorMode {
         }
     },
     ARGB {
-        val ALPHA = 0
-        val RED = 1
-        val GREEN = 2
-        val BLUE = 3
         override val length: Int
             get() = 9
         override val sub: Int
@@ -86,6 +83,10 @@ enum class ColorMode {
 
         override fun float(id: Int): Boolean {
             return false
+        }
+
+        override fun adjust(id: Int): Boolean {
+            return true
         }
 
         private var bars: ArrayList<ColorSeekBar> = ArrayList()
@@ -134,8 +135,6 @@ enum class ColorMode {
     },
     HSV {
         val HUE = 1
-        val SATURATION = 2
-        val VALUE = 3
         override val length: Int
             get() = 7
         override val sub: Int
@@ -144,6 +143,10 @@ enum class ColorMode {
 
         override fun float(id: Int): Boolean {
             return id != HUE
+        }
+
+        override fun adjust(id: Int): Boolean {
+            return false
         }
 
         private var bars: ArrayList<ColorSeekBar> = ArrayList()
@@ -206,6 +209,10 @@ enum class ColorMode {
             return id != HUE
         }
 
+        override fun adjust(id: Int): Boolean {
+            return false
+        }
+
         private var bars: ArrayList<ColorSeekBar> = ArrayList()
         private var darkMode = false
 
@@ -253,7 +260,7 @@ enum class ColorMode {
             )
         }
     },
-    LAB { // TODO: not working properly (text is not right, and values are a bit off)
+    LAB {
         private val LIGHTNESS = 1
         override val length: Int
             get() = 7
@@ -263,6 +270,10 @@ enum class ColorMode {
 
         override fun float(id: Int): Boolean {
             return false
+        }
+
+        override fun adjust(id: Int): Boolean {
+            return true
         }
 
         private var bars: ArrayList<ColorSeekBar> = ArrayList()
@@ -321,6 +332,10 @@ enum class ColorMode {
             return false
         }
 
+        override fun adjust(id: Int): Boolean {
+            return true
+        }
+
         private var bars: ArrayList<ColorSeekBar> = ArrayList()
         private var darkMode = false
 
@@ -367,6 +382,7 @@ enum class ColorMode {
         }
     },
     CMYK {
+        val BLACK = 0
         override val length: Int
             get() = 7
         override val sub: Int
@@ -375,6 +391,10 @@ enum class ColorMode {
 
         override fun float(id: Int): Boolean {
             return false
+        }
+
+        override fun adjust(id: Int): Boolean {
+            return id != BLACK
         }
 
         private var bars: ArrayList<ColorSeekBar> = ArrayList()
@@ -442,6 +462,7 @@ enum class ColorMode {
     abstract val sub: Int
     abstract var text: BottomSheetText
     abstract fun float(id: Int): Boolean
+    abstract fun adjust(id: Int): Boolean
     abstract fun calcColor(bars: List<Int>): Int
     abstract fun setText(text: Int, color: Int, type: Int)
     abstract fun getValues(color: Int): List<Pair<Float, Float>>

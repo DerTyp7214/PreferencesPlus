@@ -1,130 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context="com.dertyp7214.preferencesplus.components.ColorPicker">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.dertyp7214.preferencesplus.components.ColorPicker">
 
-    <View
-        android:id="@+id/colorView"
-        android:layout_width="300dp"
-        android:layout_height="250dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/color_plate_peter_module" />
+    <FrameLayout
+            android:layout_width="300dp"
+            android:layout_height="210dp"
+            android:id="@+id/plate">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:ignore="NestedWeights">
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                <View
+                        android:id="@+id/transparentBg"
+                        android:background="@drawable/transparent_bg"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                <View
+                        android:id="@+id/transparentBg1"
+                        android:background="@drawable/transparent_bg"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                <View
+                        android:id="@+id/transparentBg2"
+                        android:background="@drawable/transparent_bg"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                <View
+                        android:id="@+id/transparentBg3"
+                        android:background="@drawable/transparent_bg"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                <View
+                        android:id="@+id/transparentBg4"
+                        android:background="@drawable/transparent_bg"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+                <View
+                        android:id="@+id/transparentBg5"
+                        android:background="@drawable/transparent_bg"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+                android:id="@+id/colorView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/color_plate_peter_module"/>
+    </FrameLayout>
 
     <com.dertyp7214.preferencesplus.components.CustomEditText
-        android:id="@+id/hexTxt"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/colorView"
-        android:layout_alignEnd="@+id/colorView"
-        android:layout_alignParentStart="true"
-        android:backgroundTint="@android:color/background_dark"
-        android:fontFamily="monospace"
-        android:importantForAutofill="no"
-        android:inputType="textNoSuggestions"
-        android:singleLine="true"
-        android:textCursorDrawable="@drawable/color_cursor_peter_module"
-        android:textSelectHandle="@drawable/color_pointer_peter_module"
-        tools:ignore="LabelFor,UnusedAttribute" />
+            android:id="@+id/hexTxt"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/plate"
+            android:layout_alignEnd="@+id/plate"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="@android:color/background_dark"
+            android:fontFamily="monospace"
+            android:importantForAutofill="no"
+            android:inputType="textNoSuggestions"
+            android:singleLine="true"
+            android:textCursorDrawable="@drawable/color_cursor_peter_module"
+            android:textSelectHandle="@drawable/color_pointer_peter_module"
+            tools:ignore="LabelFor,UnusedAttribute"/>
 
     <com.dertyp7214.preferencesplus.components.ColorSeekBar
-        android:id="@+id/blue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/green"
-        android:layout_alignEnd="@+id/green"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:max="360" />
+            android:id="@+id/blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/green"
+            android:layout_alignEnd="@+id/green"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:max="360"/>
 
     <com.dertyp7214.preferencesplus.components.ColorSeekBar
-        android:id="@+id/green"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/red"
-        android:layout_alignEnd="@+id/red"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:max="360" />
+            android:id="@+id/green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/red"
+            android:layout_alignEnd="@+id/red"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:max="360"/>
 
     <com.dertyp7214.preferencesplus.components.ColorSeekBar
-        android:id="@+id/red"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/alpha"
-        android:layout_alignEnd="@+id/alpha"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:max="360" />
+            android:id="@+id/red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/alpha"
+            android:layout_alignEnd="@+id/alpha"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:max="360"/>
 
     <com.dertyp7214.preferencesplus.components.ColorSeekBar
-        android:id="@+id/alpha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/hexTxt"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:layout_toStartOf="@+id/txtRed"
-        android:max="360"
-        android:visibility="invisible" />
+            android:id="@+id/alpha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hexTxt"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_toStartOf="@+id/txtRed"
+            android:max="360"
+            android:visibility="invisible"/>
 
     <Button
-        android:id="@+id/btn_cancel"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_below="@+id/blue"
-        android:layout_marginEnd="5dp"
-        android:layout_toStartOf="@+id/btn_ok"
-        android:text="@android:string/cancel"
-        android:textColor="@android:color/background_dark"
-        android:textSize="14sp" />
+            android:id="@+id/btn_cancel"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@+id/blue"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/btn_ok"
+            android:text="@android:string/cancel"
+            android:textColor="@android:color/background_dark"
+            android:textSize="14sp"/>
 
     <Button
-        android:id="@+id/btn_ok"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/blue"
-        android:layout_alignEnd="@+id/txtGreen"
-        android:layout_marginEnd="5dp"
-        android:text="@android:string/ok"
-        android:textColor="@android:color/background_dark" />
+            android:id="@+id/btn_ok"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/blue"
+            android:layout_alignEnd="@+id/txtGreen"
+            android:layout_marginEnd="5dp"
+            android:text="@android:string/ok"
+            android:textColor="@android:color/background_dark"/>
 
     <TextView
-        android:id="@+id/txtAlpha"
-        android:layout_width="27dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/red"
-        android:layout_alignEnd="@+id/hexTxt"
-        android:layout_marginEnd="5dp"
-        android:visibility="invisible" />
+            android:id="@+id/txtAlpha"
+            android:layout_width="27dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/red"
+            android:layout_alignEnd="@+id/hexTxt"
+            android:layout_marginEnd="5dp"
+            android:visibility="invisible"/>
 
     <TextView
-        android:id="@+id/txtRed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/green"
-        android:layout_alignStart="@+id/txtAlpha"
-        android:layout_alignEnd="@+id/txtAlpha" />
+            android:id="@+id/txtRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/green"
+            android:layout_alignStart="@+id/txtAlpha"
+            android:layout_alignEnd="@+id/txtAlpha"/>
 
     <TextView
-        android:id="@+id/txtGreen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/blue"
-        android:layout_alignStart="@+id/txtRed"
-        android:layout_alignEnd="@+id/txtRed" />
+            android:id="@+id/txtGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/blue"
+            android:layout_alignStart="@+id/txtRed"
+            android:layout_alignEnd="@+id/txtRed"/>
 
     <TextView
-        android:id="@+id/txtBlue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_cancel"
-        android:layout_alignStart="@+id/txtRed"
-        android:layout_alignEnd="@+id/txtGreen" />
+            android:id="@+id/txtBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_cancel"
+            android:layout_alignStart="@+id/txtRed"
+            android:layout_alignEnd="@+id/txtGreen"/>
 
 </RelativeLayout>
